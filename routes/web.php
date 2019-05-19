@@ -17,7 +17,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
-Route::get('/routes', 'DashboardController@show')->name('routes');
+Route::get('/routes', 'RouteController@index')->name('routes');
 Route::get('/users', 'DashboardController@show')->name('users');
 Route::get('/audit-trail', 'DashboardController@show')->name('audit-trail');
 Route::get('/settings', 'DashboardController@show')->name('settings');
+
+Route::get('/routes/{name}', 'RouteController@show')->name('route');

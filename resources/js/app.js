@@ -5,6 +5,7 @@
  */
 
 window.Vue = require('vue');
+var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
 // var test = require('./modules/vue-router.js');
 

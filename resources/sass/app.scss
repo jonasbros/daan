@@ -5,8 +5,8 @@
 @import 'variables';
 //Bulma
 @import '~bulma/css/bulma.min.css';
-// Modules
+//Modules
 @import './modules/login.scss';
 @import './modules/register.scss';
 @import './modules/admin-dashboard.scss';
-
+@import './modules/mapbox.scss';

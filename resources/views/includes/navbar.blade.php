@@ -2,7 +2,7 @@
     <div class="container">
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item is-size-4 has-text-weight-bold has-text-primary" href="{{ url('/dashboard') }}">
+                <a class="navbar-item is-size-4 has-text-weight-bold has-text-primary" href="{{ route('dashboard') }}">
                     {{ config('app.name', 'Daan Admin') }}
                 </a>
             </div>

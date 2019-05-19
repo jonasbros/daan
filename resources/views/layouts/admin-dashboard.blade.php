@@ -18,6 +18,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @if( Request::is('routes/*') )        
+        <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+        <link href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' rel='stylesheet' type='text/css' />         
+    @endif
 </head>
 <body>
     <div id="app">      
@@ -34,6 +39,17 @@
             </div>
         </div>
         
-    </div>
+    </div>  
+
+    @if( Request::is('routes/*') )     
+        <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js' defer></script>    
+        <script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js' defer></script>    
+
+        <script src="{{ asset('js/mapbox.js') }}" defer></script>
+        {{-- Pass Laravel data from DB --}}
+        <script>
+            var coordinates = {!! json_encode($route->toArray()) !!};
+        </script>    
+    @endif    
 </body>
 </html>
