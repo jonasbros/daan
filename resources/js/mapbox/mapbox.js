@@ -36,7 +36,7 @@ if( waypoints.length ) {
     
     directions.query();
 }
-
+// cclick event listener
 map.on('click', function(e) {
     waypoints.push([e.latlng.lat, e.latlng.lng]);    
     let waypointIndex = waypoints.length - 1;

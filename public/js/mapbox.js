@@ -115,7 +115,8 @@ if (waypoints.length) {
   }
 
   directions.query();
-}
+} // cclick event listener
+
 
 map.on('click', function (e) {
   waypoints.push([e.latlng.lat, e.latlng.lng]);
@@ -142,7 +143,7 @@ console.log(directions);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /projects/daan/resources/js/mapbox/mapbox.js */"./resources/js/mapbox/mapbox.js");
+module.exports = __webpack_require__(/*! H:\Project\daan\resources\js\mapbox\mapbox.js */"./resources/js/mapbox/mapbox.js");
 
 
 /***/ })
