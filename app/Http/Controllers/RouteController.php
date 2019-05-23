@@ -40,7 +40,7 @@ class RouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('pages.routes-submit', compact('request'));
     }
 
     /**

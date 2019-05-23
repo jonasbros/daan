@@ -157,12 +157,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['controls', 'waypointslist', 'routes'],
   data: function data() {
     return {
       waypoints: []
     };
+  },
+  computed: {
+    waypointsString: function waypointsString() {
+      return this.waypoints.join(';');
+    }
   },
   created: function created() {
     this.parseRoute();
@@ -191,7 +203,6 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.waypoints.length) {
         for (var i = 0; i < this.waypoints.length; i++) {
-          console.log(this.waypoints[i]);
           var latLng = L.latLng(this.waypoints[i][0], this.waypoints[i][1]);
 
           if (i === 0) {
@@ -206,11 +217,14 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         directions.query();
-      }
+      } // cclick event listener
 
-      console.log(directions); // cclick event listener
 
       map.on('click', function (e) {
+        if (_this.waypoints.length >= 25) {
+          return;
+        }
+
         _this.waypoints.push([e.latlng.lat, e.latlng.lng]);
 
         var waypointIndex = _this.waypoints.length - 1;
@@ -242,6 +256,12 @@ __webpack_require__.r(__webpack_exports__);
     // deleteAll
     deleteLast: function deleteLast() {
       alert(2);
+    },
+    // deleteLast
+    saveRoute: function saveRoute() {
+      var form = document.querySelector('#waypoints-form');
+      console.log(form);
+      form.submit();
     }
   }
 });
@@ -1489,7 +1509,11 @@ var render = function() {
             [_vm._v("Delete Last Waypoint")]
           ),
           _vm._v(" "),
-          _c("button", { staticClass: "button is-primary" }, [_vm._v("Save")])
+          _c(
+            "button",
+            { staticClass: "button is-primary", on: { click: _vm.saveRoute } },
+            [_vm._v("Save")]
+          )
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -1516,7 +1540,33 @@ var render = function() {
             )
           ])
         : _vm._e()
-    ])
+    ]),
+    _vm._v(" "),
+    _c("textarea", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.waypointsString,
+          expression: "waypointsString"
+        }
+      ],
+      staticStyle: { display: "none" },
+      attrs: {
+        name: "waypoints_input",
+        id: "waypoints-input",
+        form: "waypoints-form"
+      },
+      domProps: { value: _vm.waypointsString },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.waypointsString = $event.target.value
+        }
+      }
+    })
   ])
 }
 var staticRenderFns = [

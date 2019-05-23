@@ -23,3 +23,4 @@ Route::get('/audit-trail', 'DashboardController@show')->name('audit-trail');
 Route::get('/settings', 'DashboardController@show')->name('settings');
 
 Route::get('/routes/{name}', 'RouteController@show')->name('route');
+Route::post('/routes/submit', 'RouteController@store')->name('routes_submit');

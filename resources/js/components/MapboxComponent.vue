@@ -3,7 +3,7 @@
         <div class="waypoint__controls" v-if="controls === 'true'">
             <button class="button is-primary" @click="deleteAll">Delete All Waypoints</button>
             <button class="button is-primary" @click="deleteLast">Delete Last Waypoint</button>
-            <button class="button is-primary">Save</button>
+            <button class="button is-primary" @click="saveRoute">Save</button>
         </div>
 
         <div class="columns">
@@ -23,7 +23,14 @@
                 </ul>
             </div>
         </div> <!-- .columns -->
-        
+
+        <textarea 
+        name="waypoints_input"
+        id="waypoints-input"
+        v-model="waypointsString"
+        style="display: none;"
+        form="waypoints-form"
+        ></textarea>
     </div>
 </template>
 
@@ -38,6 +45,11 @@
             return {
                 waypoints: [],
             }            
+        },
+        computed: {
+            waypointsString() {
+                return this.waypoints.join(';');
+            }
         },
         created() {
             this.parseRoute();
@@ -78,7 +90,6 @@
 
                  if( this.waypoints.length ) {
                     for(var i = 0; i < this.waypoints.length; i++){
-                        console.log(this.waypoints[i]);
                         let latLng = L.latLng(this.waypoints[i][0], this.waypoints[i][1]);
                         if( i === 0 ) {
                             directions.setOrigin(latLng);
@@ -91,10 +102,10 @@
                     }                      
                     directions.query();
                 }
-
-                console.log(directions);
                 // cclick event listener
                 map.on('click', (e) => {
+                    if( this.waypoints.length >= 25 ) { return; }
+
                     this.waypoints.push([e.latlng.lat, e.latlng.lng]);    
                     let waypointIndex = this.waypoints.length - 1;
                     let latLng = L.latLng(this.waypoints[waypointIndex]);
@@ -122,7 +133,12 @@
             },// deleteAll
             deleteLast() {
                 alert(2);
-            }, //deleteLast
+            }, // deleteLast
+            saveRoute() {
+                let form = document.querySelector('#waypoints-form');
+                console.log(form);
+                form.submit();
+            }, // saveRoute
         }
     }
 </script>

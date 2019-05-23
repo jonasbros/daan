@@ -9,5 +9,7 @@
         waypointslist="true"
         routes="{{ $route[0]->path }}"        
         />
+
+     
     </div>
 @endsection

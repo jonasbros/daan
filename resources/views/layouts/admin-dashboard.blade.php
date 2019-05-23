@@ -35,8 +35,11 @@
         </div>
         
     </div>  
-
     @if( Request::is('routes/*') )
+        <form method="POST" action="/routes/submit" id="waypoints-form">
+            @csrf
+        </form>
+
         <script src="https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js"></script>
         <script src="https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js"></script>
     @endif
