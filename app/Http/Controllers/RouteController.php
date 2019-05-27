@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,12 @@ class RouteController extends Controller
             ->where('name', '=', $name)
             ->get();
 
-        return view('pages.route-single', compact('route'));
+        if( $route->count() ) {
+            return view('pages.route-single', compact('route'));
+        }else {
+            abort(404, 'Route Not Found');
+            return view('errors.404');
+        }       
     }
 
     /**
@@ -78,7 +84,10 @@ class RouteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $route = Route::find($id);
+        $route->path = $request->input('waypoints_input');
+        $route->save();
+        return redirect('/routes/' . $route->name);
     }
 
     /**

@@ -168,15 +168,21 @@ __webpack_require__.r(__webpack_exports__);
   props: ['controls', 'waypointslist', 'routes'],
   data: function data() {
     return {
-      waypoints: []
+      waypoints: [],
+      directionsObj: null
     };
   },
   computed: {
     waypointsString: function waypointsString() {
+      //this is the input that will get saved to DB
       return this.waypoints.join(';');
+    },
+    waypointsLength: function waypointsLength() {
+      return this.waypoints.length - 1;
     }
   },
   created: function created() {
+    //process waypoints string from database, turn to array
     this.parseRoute();
   },
   mounted: function mounted() {
@@ -194,50 +200,61 @@ __webpack_require__.r(__webpack_exports__);
       map.attributionControl.setPosition('bottomleft'); // create the initial directions object, from which the layer
       // and inputs will pull data.
 
-      var directions = L.mapbox.directions();
-      var directionsLayer = L.mapbox.directions.layer(directions).addTo(map);
-      var directionsInputControl = L.mapbox.directions.inputControl('inputs', directions).addTo(map);
-      var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', directions).addTo(map);
-      var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions).addTo(map);
-      var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions).addTo(map);
+      this.directionsObj = L.mapbox.directions();
+      var directionsLayer = L.mapbox.directions.layer(this.directionsObj).addTo(map);
+      var directionsInputControl = L.mapbox.directions.inputControl('inputs', this.directionsObj).addTo(map);
+      var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', this.directionsObj).addTo(map);
+      var directionsRoutesControl = L.mapbox.directions.routesControl('routes', this.directionsObj).addTo(map);
+      var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', this.directionsObj).addTo(map);
 
       if (this.waypoints.length) {
-        for (var i = 0; i < this.waypoints.length; i++) {
+        //loop through waypoints array then assign to waypoint
+        for (var i = 0; i <= this.waypointsLength; i++) {
           var latLng = L.latLng(this.waypoints[i][0], this.waypoints[i][1]);
 
           if (i === 0) {
-            directions.setOrigin(latLng);
+            //first waypoint is origin
+            this.directionsObj.setOrigin(latLng);
           }
 
-          if (i === this.waypoints.length - 1) {
-            directions.setDestination(latLng);
-          }
+          if (i === this.waypointsLength) {
+            //last element is destination
+            this.directionsObj.setDestination(latLng);
+          } //elements in middle are waypoints
 
-          directions.addWaypoint(i, latLng);
-        }
 
-        directions.query();
+          this.directionsObj.addWaypoint(i, latLng);
+        } //repaint      
+
+
+        this.directionsObj.query();
       } // cclick event listener
 
 
       map.on('click', function (e) {
+        //if reached max waypoints
         if (_this.waypoints.length >= 25) {
           return;
         }
 
         _this.waypoints.push([e.latlng.lat, e.latlng.lng]);
 
-        var waypointIndex = _this.waypoints.length - 1;
+        var waypointIndex = _this.waypointsLength;
         var latLng = L.latLng(_this.waypoints[waypointIndex]);
 
         if (waypointIndex == 0) {
-          directions.setOrigin(latLng);
+          //set first index to origin
+          _this.directionsObj.setOrigin(latLng);
         } else {
-          directions.addWaypoint(waypointIndex, latLng);
-          directions.setDestination(latLng);
-        }
+          //add waypoints
+          _this.directionsObj.addWaypoint(waypointIndex, latLng); //newest waypoint becomes destination
 
-        directions.query();
+
+          _this.directionsObj.setDestination(latLng);
+        } //repaint
+
+
+        _this.directionsObj.query();
       });
     },
     // init
@@ -255,12 +272,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     // deleteAll
     deleteLast: function deleteLast() {
-      alert(2);
+      if (this.waypointsLength > 1) {
+        //remove last waypoint
+        this.directionsObj.removeWaypoint(this.waypointsLength); //set destination to lastwaypoint - 1
+
+        this.directionsObj.setDestination(L.latLng(this.waypoints[this.waypointsLength - 1]));
+      } else if (this.waypointsLength == 0) {
+        //if no elements, remove origin
+        this.directionsObj.setOrigin(null);
+      } else {
+        //if waypoints remaining = 1, remove destination.
+        this.directionsObj.setDestination(null);
+      } //remove last element from waypoints 
+
+
+      this.waypoints.pop(); //repaint           
+
+      this.directionsObj.query();
     },
     // deleteLast
     saveRoute: function saveRoute() {
       var form = document.querySelector('#waypoints-form');
-      console.log(form);
       form.submit();
     }
   }
