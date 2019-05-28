@@ -114,6 +114,7 @@
                 }
                 // cclick event listener
                 map.on('click', (e) => {
+                    console.log(this.waypoints);
                     //if reached max waypoints
                     if( this.waypoints.length >= 25 ) { return; }
                 
@@ -135,7 +136,7 @@
                     this.directionsObj.query();
                 });
             }, // init
-            parseRoute() {
+            parseRoute() {                            
                 this.waypoints = this.routes.split(';');
                 this.waypoints.join();
 
@@ -143,9 +144,24 @@
                     item = item.split(',');      
                     return item;
                 } );
+                
+                if( !this.waypoints.length || this.waypoints[0] == '' ) {
+                    this.waypoints = [];     
+                    return;
+                }    
             }, // parseRoute
             deleteAll() {
-                alert('1');
+                this.waypoints.forEach((el, i, arr) => {
+                    if( i == 0 ) {
+                        this.directionsObj.setOrigin(null);
+                    }else if( i == arr.length - 1 ) {
+                        this.directionsObj.setDestination(null);
+                    }else {
+                        this.directionsObj.removeWaypoint(i);
+                    }               
+                });
+                
+                this.waypoints = [];
             },// deleteAll
             deleteLast() {
                 if( this.waypointsLength > 1 ) {

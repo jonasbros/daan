@@ -232,7 +232,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
       map.on('click', function (e) {
-        //if reached max waypoints
+        console.log(_this.waypoints); //if reached max waypoints
+
         if (_this.waypoints.length >= 25) {
           return;
         }
@@ -265,10 +266,26 @@ __webpack_require__.r(__webpack_exports__);
         item = item.split(',');
         return item;
       });
+
+      if (!this.waypoints.length || this.waypoints[0] == '') {
+        this.waypoints = [];
+        return;
+      }
     },
     // parseRoute
     deleteAll: function deleteAll() {
-      alert('1');
+      var _this2 = this;
+
+      this.waypoints.forEach(function (el, i, arr) {
+        if (i == 0) {
+          _this2.directionsObj.setOrigin(null);
+        } else if (i == arr.length - 1) {
+          _this2.directionsObj.setDestination(null);
+        } else {
+          _this2.directionsObj.removeWaypoint(i);
+        }
+      });
+      this.waypoints = [];
     },
     // deleteAll
     deleteLast: function deleteLast() {
@@ -13937,8 +13954,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! H:\Project\daan\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! H:\Project\daan\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /projects/daan/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /projects/daan/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
