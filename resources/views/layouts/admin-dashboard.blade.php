@@ -37,7 +37,7 @@
     </div>  
     @if( Request::is('routes/*') )
         <?php   
-            $form_action = ( isset($route) && $route ? '/routes/update/' . $route[0]->id : '/routes/new');
+            $form_action = ( isset($route) && $route ? '/routes/update/' . $route[0]->id : '/routes/new/submit');
         ?>
 
         <form method="POST" action="{{ $form_action }}" id="waypoints-form">

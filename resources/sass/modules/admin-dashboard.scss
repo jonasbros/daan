@@ -19,8 +19,30 @@
     height: 100%;
     width: calc(100% - 300px);
     padding: 15px;
+
+    h1, h2 {
+        margin-bottom: 12px;
+    }
+
+    .dashboard__content-inner {
+        padding-top: 8px;
+    }
+    
 }
 
 .waypoint__controls {
     padding-top: 10px;
+}
+
+.route-new__input {
+
+    &.columns:not(:last-child) {
+        margin-bottom: 0;
+    }
+
+    .route-new__name {
+        button {
+            margin-top: 8px;
+        }
+    }
 }

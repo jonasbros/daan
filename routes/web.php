@@ -17,11 +17,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
-Route::get('/routes', 'RouteController@index')->name('routes');
 Route::get('/users', 'DashboardController@show')->name('users');
 Route::get('/audit-trail', 'DashboardController@show')->name('audit-trail');
 Route::get('/settings', 'DashboardController@show')->name('settings');
 
+// /routes
+Route::get('/routes', 'RouteController@index')->name('routes');
+Route::get('/routes/new/', 'RouteController@create')->name('route_new');
 Route::get('/routes/{name}', 'RouteController@show')->name('route');
-Route::post('/routes/new', 'RouteController@store')->name('routes_submit');
-Route::patch('/routes/update/{id}', 'RouteController@update')->name('routes_submit');
+Route::post('/routes/new/submit', 'RouteController@store')->name('routes_new_submit');
+Route::patch('/routes/update/{id}', 'RouteController@update')->name('routes_update_submit');

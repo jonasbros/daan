@@ -30,7 +30,7 @@ class RouteController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.route-new');
     }
 
     /**
@@ -40,8 +40,19 @@ class RouteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        return view('pages.routes-submit', compact('request'));
+    {        
+        $validatedData = $request->validate([
+            'route_name' => 'required|max:72',
+            'waypoints_input' => 'required',
+        ]);
+
+        $route = new Route;        
+        $route->name = $request->route_name;
+        $route->path = $request->waypoints_input;
+        $route->searches = 0;
+        $route->save();
+        
+        return redirect('/routes/' . $route->name);
     }
 
     /**
