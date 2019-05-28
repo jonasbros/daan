@@ -145,7 +145,7 @@
                     return item;
                 } );
                 
-                if( !this.waypoints.length || this.waypoints[0] == '' ) {
+                if( !this.waypoints.length || this.waypoints[0] == '' || this.waypoints.length <= 1 ) {
                     this.waypoints = [];     
                     return;
                 }    
