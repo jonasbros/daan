@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/bulma-tagsinput.js": "/js/bulma-tagsinput.js",
     "/js/mapbox.js": "/js/mapbox.js"
 }

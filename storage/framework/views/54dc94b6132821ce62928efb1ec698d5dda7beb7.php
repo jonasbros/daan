@@ -6,10 +6,17 @@
 
             <div class="route-new__input columns">
                 <div class="route-new__name column is-two-thirds">
+                    
                     <label for="route-new__name">
                         Name: 
                         <input type="text" name="route_name" id="route-new__name" class="input" form="waypoints-form" required>
                     </label>
+                    
+                    <label for="route-add_tags">
+                        Tags: 
+                      
+                    </label>
+                    <input type="tags" class="input" name="add_tags" id="route-add_tags" placeholder="Add tag" value="">
                     
                     <div class="route-new__errors">
                         <?php if( $errors->any() ): ?>

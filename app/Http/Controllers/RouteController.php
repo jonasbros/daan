@@ -45,6 +45,7 @@ class RouteController extends Controller
             'route_name' => 'required|max:72',
             'waypoints_input' => 'required',
         ]);
+        
 
         $route = new Route;        
         $route->name = $request->route_name;
