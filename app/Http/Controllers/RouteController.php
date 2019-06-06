@@ -53,9 +53,11 @@ class RouteController extends Controller
         $route->searches = 0;       
         $route->save();
         
+        //find how to save relationships. is temporary
         $tags = new Tag();        
         $tags->route_id = $route->id;
-        $tags->tag = $request->tags;  
+        $tags->tag = $request->tags;
+        $tags->save();
         
         return redirect('/routes/' . $route->name);
     }
