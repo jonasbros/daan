@@ -1,6 +1,7 @@
 <template>
     <div class="mapbox__component-container">
         <div class="waypoint__controls" v-if="controls === 'true'">
+            <button v-if="userrole === 'admin:1'" class="button is-danger" @click="askDelete">Delete Route</button>
             <button class="button is-primary" @click="deleteAll">Delete All Waypoints</button>
             <button class="button is-primary" @click="deleteLast">Delete Last Waypoint</button>
             <button class="button is-primary" @click="saveRoute">Save</button>
@@ -39,7 +40,9 @@
         props: [
             'controls',
             'waypointslist',
-            'routes'
+            'routes',
+            'routeid',
+            'userrole',
         ],
         data() {
             return {
@@ -185,6 +188,19 @@
                 let form = document.querySelector('#waypoints-form');
                 form.submit();
             }, // saveRoute
+            askDelete() {
+                let del = confirm('Are you sure you want to delete this route?');
+
+                if( del ) {
+                    this.deleteRoute();
+                }
+                return;
+            }, // askDelete
+            deleteRoute() {     
+                let form = document.querySelector('#waypoints-form');
+                form.setAttribute('action', '/routes/delete/' + this.routeid);
+                form.submit();
+            }, // deleteRoute
         }
     }
 </script>

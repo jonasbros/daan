@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateRouteTable extends Migration
+class CreateDeletedColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class UpdateRouteTable extends Migration
     public function up()
     {
         Schema::table('routes', function (Blueprint $table) {
-            $table->text('path')->nullable()->change();
-           
+            $table->smallInteger('deleted')->default(0);
         });
     }
 
@@ -26,8 +25,6 @@ class UpdateRouteTable extends Migration
      */
     public function down()
     {
-        Schema::table('routes', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('routes');
     }
 }

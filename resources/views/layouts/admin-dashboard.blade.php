@@ -37,13 +37,10 @@
     </div>  
     @if( Request::is('routes/*') )
         <?php   
-            $form_action = ( isset($route) && $route ? '/routes/update/' . $route[0]->id : '/routes/new/submit');
+            $form_action = ( isset($data) && $data ? '/routes/update/' . $data['route']->id : '/routes/new/submit');            
         ?>
 
         <form method="POST" action="{{ $form_action }}" id="waypoints-form">
-            @if( isset($route) && $route )
-                @method('PATCH')
-            @endif
             @csrf
         </form>
 

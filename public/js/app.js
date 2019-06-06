@@ -164,8 +164,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['controls', 'waypointslist', 'routes'],
+  props: ['controls', 'waypointslist', 'routes', 'routeid', 'userrole'],
   data: function data() {
     return {
       waypoints: [],
@@ -310,6 +311,22 @@ __webpack_require__.r(__webpack_exports__);
     // deleteLast
     saveRoute: function saveRoute() {
       var form = document.querySelector('#waypoints-form');
+      form.submit();
+    },
+    // saveRoute
+    askDelete: function askDelete() {
+      var del = confirm('Are you sure you want to delete this route?');
+
+      if (del) {
+        this.deleteRoute();
+      }
+
+      return;
+    },
+    // askDelete
+    deleteRoute: function deleteRoute() {
+      var form = document.querySelector('#waypoints-form');
+      form.setAttribute('action', '/routes/delete/' + this.routeid);
       form.submit();
     }
   }
@@ -1546,6 +1563,17 @@ var render = function() {
   return _c("div", { staticClass: "mapbox__component-container" }, [
     _vm.controls === "true"
       ? _c("div", { staticClass: "waypoint__controls" }, [
+          _vm.userrole === "admin:1"
+            ? _c(
+                "button",
+                {
+                  staticClass: "button is-danger",
+                  on: { click: _vm.askDelete }
+                },
+                [_vm._v("Delete Route")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "button",
             { staticClass: "button is-primary", on: { click: _vm.deleteAll } },

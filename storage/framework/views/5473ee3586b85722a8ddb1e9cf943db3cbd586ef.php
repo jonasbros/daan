@@ -1,12 +1,14 @@
 <?php $__env->startSection('content'); ?>
     <div class="dashboard__content">
-        <h1 class="is-size-2 has-text-weight-bold"><?php echo e($route[0]->name); ?></h1>
+        <h1 class="is-size-2 has-text-weight-bold"><?php echo e($data['route']->name); ?></h1>
         <h2></h2>
 
         <mapbox 
         controls="true"
         waypointslist="true"
-        routes="<?php echo e($route[0]->path); ?>"        
+        routes="<?php echo e($data['route']->path); ?>"
+        routeid="<?php echo e($data['route']->id); ?>"     
+        userrole="<?php echo e($data['user_role']); ?>"   
         />     
     </div>
 <?php $__env->stopSection(); ?>

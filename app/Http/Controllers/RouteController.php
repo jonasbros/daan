@@ -6,6 +6,8 @@ use App\Route;
 use App\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class RouteController extends Controller
 {
@@ -20,7 +22,9 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $routes = DB::table('routes')->get();
+        $routes = DB::table('routes')
+            ->where('deleted', 0)
+            ->get();
         return view('pages.routes', compact('routes'));
     }
 
@@ -71,11 +75,20 @@ class RouteController extends Controller
     public function show($name)
     {
         $route = DB::table('routes')
-            ->where('name', '=', $name)
+            ->where('name', $name)
             ->get();
 
+        $role = DB::table('users')
+            ->where('id', Auth::id())
+            ->pluck('role');
+
+        $data = array(
+            'route'     => $route[0],
+            'user_role' => $role[0],
+        );
+
         if( $route->count() ) {
-            return view('pages.route-single', compact('route'));
+            return view('pages.route-single', compact('data'));
         }else {
             abort(404, 'Route Not Found');
             return view('errors.404');
@@ -116,6 +129,9 @@ class RouteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $route = Route::find($id);
+        $route->deleted = 1;
+        $route->save();
+        return redirect('/routes');
     }
 }

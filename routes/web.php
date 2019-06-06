@@ -26,4 +26,5 @@ Route::get('/routes', 'RouteController@index')->name('routes');
 Route::get('/routes/new/', 'RouteController@create')->name('route_new');
 Route::get('/routes/{name}', 'RouteController@show')->name('route');
 Route::post('/routes/new/submit', 'RouteController@store')->name('routes_new_submit');
-Route::patch('/routes/update/{id}', 'RouteController@update')->name('routes_update_submit');
+Route::post('/routes/update/{id}', 'RouteController@update')->name('routes_update_submit');
+Route::post('/routes/delete/{id}', 'RouteController@destroy')->name('routes_delete_submit')->middleware('admin-role');
