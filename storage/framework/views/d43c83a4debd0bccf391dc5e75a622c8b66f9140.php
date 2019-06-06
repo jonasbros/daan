@@ -37,7 +37,7 @@
     </div>  
     <?php if( Request::is('routes/*') ): ?>
         <?php   
-            $form_action = ( isset($route) && $route ? '/routes/update/' . $route[0]->id : '/routes/new');
+            $form_action = ( isset($route) && $route ? '/routes/update/' . $route[0]->id : '/routes/new/submit');
         ?>
 
         <form method="POST" action="<?php echo e($form_action); ?>" id="waypoints-form">
@@ -49,6 +49,7 @@
 
         <script src="https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js"></script>
         <script src="https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js"></script>
+        <script src="<?php echo e(asset('js/bulma-tagsinput.js')); ?>" defer></script>
     <?php endif; ?>
 </body>
 </html>

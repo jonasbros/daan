@@ -1,6 +1,4 @@
-@extends('layouts.admin-dashboard')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="dashboard__content">
 
         <div class="dashboard__content-inner">
@@ -8,24 +6,24 @@
 
             <div class="route-new__input columns">
                 <div class="route-new__name column is-two-thirds">
-                    {{-- route name --}}
+                    
                     <label for="route-new__name">
                         Name: 
                         <input type="text" name="name" id="route-new__name" class="input" form="waypoints-form" required>
                     </label>
-                    {{-- tags --}}
+                    
                     <label for="route-add_tags">
                         Tags: 
                       
                     </label>
                     <input type="tags" class="input" name="tags" id="route-add_tags" placeholder="Add tags" form="waypoints-form" value="">
-                    {{-- needs style --}}
+                    
                     <div class="route-new__errors">
-                        @if( $errors->any() )
-                            @foreach ($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        @endif
+                        <?php if( $errors->any() ): ?>
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <p><?php echo e($error); ?></p>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </div>
 
                     <button type="submit" form="waypoints-form" class="button is-primary">Save</button>
@@ -39,4 +37,5 @@
 
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin-dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /projects/daan/resources/views/pages/route-new.blade.php ENDPATH**/ ?>

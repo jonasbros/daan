@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Route;
+use App\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -42,16 +43,19 @@ class RouteController extends Controller
     public function store(Request $request)
     {        
         $validatedData = $request->validate([
-            'route_name' => 'required|max:72',
+            'name' => 'required|max:72|unique:routes',
             'waypoints_input' => 'required',
-        ]);
-        
+        ]);        
 
-        $route = new Route;        
-        $route->name = $request->route_name;
+        $route = new Route;    
+        $route->name = $request->name;
         $route->path = $request->waypoints_input;
-        $route->searches = 0;
+        $route->searches = 0;       
         $route->save();
+        
+        $tags = new Tag();        
+        $tags->route_id = $route->id;
+        $tags->tag = $request->tags;  
         
         return redirect('/routes/' . $route->name);
     }
