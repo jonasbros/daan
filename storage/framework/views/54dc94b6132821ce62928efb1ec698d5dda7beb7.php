@@ -9,14 +9,14 @@
                     
                     <label for="route-new__name">
                         Name: 
-                        <input type="text" name="route_name" id="route-new__name" class="input" form="waypoints-form" required>
+                        <input type="text" name="name" id="route-new__name" class="input" form="waypoints-form" required>
                     </label>
                     
                     <label for="route-add_tags">
                         Tags: 
                       
                     </label>
-                    <input type="tags" class="input" name="add_tags" id="route-add_tags" placeholder="Add tag" value="">
+                    <input type="tags" class="input" name="tags" id="route-add_tags" placeholder="Add tags" form="waypoints-form" value="">
                     
                     <div class="route-new__errors">
                         <?php if( $errors->any() ): ?>
@@ -26,13 +26,14 @@
                         <?php endif; ?>
                     </div>
 
-                    <button type="submit" form="waypoints-form" class="button is-primary">Save</button>
+                    
                 </div>    
             </div>
             
             <mapbox 
             waypointslist="true"
             routes="''"        
+            controls="true"
             />   
 
         </div>

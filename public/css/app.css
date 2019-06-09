@@ -76,6 +76,11 @@
   padding-top: 8px;
 }
 
+.dashboard__content .dashboard__content-inner table .table__user-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .waypoint__controls {
   padding-top: 10px;
 }

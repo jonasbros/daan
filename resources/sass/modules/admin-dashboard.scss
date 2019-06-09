@@ -26,7 +26,16 @@
 
     .dashboard__content-inner {
         padding-top: 8px;
+
+        table {
+
+            .table__user-container {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
     }
+    
     
 }
 

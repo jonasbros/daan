@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+
+class UserController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +16,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //
+        $users = DB::table('users')->get(['id', 'name', 'email', 'role']);
+
+        return view('pages.users', array( 'users' => $users ));
     }
 
     /**
@@ -46,9 +48,9 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('pages.dashboard');
+        return view('pages.users-single');
     }
 
     /**

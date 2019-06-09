@@ -13,11 +13,15 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('auth.login');
+    if( !Auth::user() ) {
+        return view('auth.login');
+    }else {
+        return redirect('/dashboard');
+    }
+    
 });
 
 Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
-Route::get('/users', 'DashboardController@show')->name('users');
 Route::get('/audit-trail', 'DashboardController@show')->name('audit-trail');
 Route::get('/settings', 'DashboardController@show')->name('settings');
 
@@ -28,3 +32,7 @@ Route::get('/routes/{name}', 'RouteController@show')->name('route');
 Route::post('/routes/new/submit', 'RouteController@store')->name('routes_new_submit');
 Route::post('/routes/update/{id}', 'RouteController@update')->name('routes_update_submit');
 Route::post('/routes/delete/{id}', 'RouteController@destroy')->name('routes_delete_submit')->middleware('admin-role');
+
+//users
+Route::get('/users', 'UserController@index')->name('users');
+Route::get('/users/{id}', 'UserController@show')->name('user');
