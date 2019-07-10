@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTagsTable extends Migration
+class UpdateAuditsWhatLen extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::table('tags', function($table) {
-            $table->string('tag', 255)->default('')->nullable()->change();
+        Schema::table('audits', function($table) {
+            $table->string('what', 255)->nullable()->change();
         });
     }
 
@@ -28,4 +28,3 @@ class UpdateTagsTable extends Migration
         //
     }
 }
-

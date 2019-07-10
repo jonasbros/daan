@@ -26,13 +26,14 @@
                         <?php endif; ?>
                     </div>
 
-                    <button type="submit" form="waypoints-form" class="button is-primary">Save</button>
+                    
                 </div>    
             </div>
             
             <mapbox 
             waypointslist="true"
             routes="''"        
+            controls="true"
             />   
 
         </div>

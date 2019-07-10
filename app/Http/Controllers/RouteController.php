@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Route;
 use App\Tag;
+use App\helpers\AuditTrail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,14 @@ class RouteController extends Controller
             $tags->tag = $request->tags;
             $tags->save();            
         }
+        
+        $audit = new AuditTrail;
+        $audit->create(array(
+            'user_id' => Auth::id(),
+            'action'  => 'created',
+            'what'    => $request->name . ' route',
+            'link'    => route( 'route', array('name' => $route->name) ),
+        ));
      
         return redirect('/routes/');
     }
@@ -120,6 +129,15 @@ class RouteController extends Controller
         $route = Route::find($id);
         $route->path = $request->input('waypoints_input');
         $route->save();
+        
+        $audit = new AuditTrail;
+        $audit->create(array(
+            'user_id' => Auth::id(),
+            'action'  => 'updated',
+            'what'    => $route->name . ' route',
+            'link'    => route( 'route', array('name' => $route->name) ),
+        ));
+        
         return redirect('/routes/' . $route->name);
     }
 
@@ -134,6 +152,15 @@ class RouteController extends Controller
         $route = Route::find($id);
         $route->deleted = 1;
         $route->save();
+        
+        $audit = new AuditTrail;
+        $audit->create(array(
+            'user_id' => Auth::id(),
+            'action'  => 'deleted',
+            'what'    => $route->name . ' route',
+            'link'    => route( 'route', array('name' => $route->name) ),
+        ));
+        
         return redirect('/routes');
     }
 }

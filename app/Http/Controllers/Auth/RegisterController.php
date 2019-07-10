@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\helpers\AuditTrail;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -48,7 +49,15 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
+    
+        $audit = new AuditTrail;
+        $audit->create(array(
+            'user_id' => Auth::id(),
+            'action'  => 'registered',
+            'what'    => $request->name . ' as ' . $request->role,
+            'link'    => route( 'users', array('id' => $user->id) ),
+        ));
+        
         return redirect('/register')->with('success', 'A new admin has been added!');
     }
 
@@ -75,12 +84,12 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {           
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
         ]);
-    }
+    }    
 }
