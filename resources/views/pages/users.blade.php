@@ -4,10 +4,12 @@
     <div class="dashboard__content">
         <h1 class="is-size-2 has-text-weight-bold">Administrators</h1>
 
-        <div>
-            <div class="waypoint__controls">
-                <a href="{{ route('register') }}" class="button is-primary">Add new admin</a>
-            </div>     
+        <div>          
+            @if( \Auth::user()->role == 'admin:1' )
+                <div class="waypoint__controls">
+                    <a href="{{ route('register') }}" class="button is-primary">Add new admin</a>
+                </div>     
+            @endif
             
             <div class="dashboard__content-inner">
                 <table class="table is-bordered is-striped is-hoverable is-fullwidth">

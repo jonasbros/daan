@@ -1,13 +1,8 @@
 <?php $__env->startSection('content'); ?>
     <div class="dashboard__content">
-        <h1 class="is-size-2 has-text-weight-bold">Routes</h1>
+        <h1 class="is-size-2 has-text-weight-bold">Routes Archive</h1>
 
         <div>
-            <div class="waypoint__controls">
-                <a href="<?php echo e(route('route_new')); ?>" class="button is-primary">New Route</a>
-                <a href="<?php echo e(route('route_archive')); ?>" class="button is-primary">Archive</a>
-            </div>     
-            
             <div class="dashboard__content-inner">
                 <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                     <tr>
@@ -30,4 +25,4 @@
         </div>
     </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.admin-dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH H:\Project\daan\resources\views/pages/routes.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin-dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH H:\Project\daan\resources\views/pages/routes-archive.blade.php ENDPATH**/ ?>

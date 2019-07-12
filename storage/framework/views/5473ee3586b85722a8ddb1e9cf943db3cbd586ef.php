@@ -1,7 +1,16 @@
 <?php $__env->startSection('content'); ?>
     <div class="dashboard__content">
-        <h1 class="is-size-2 has-text-weight-bold"><?php echo e($data['route']->name); ?></h1>
-        <h2></h2>
+        <?php if( $data['route']->deleted == 1 ): ?>
+            <h2 class="is-size-4 has-text-weight-bold">Archive</h2>
+        <?php endif; ?>
+
+        <h1 class="is-size-2 has-text-weight-bold"><?php echo e($data['route']->name); ?></h1>       
+
+        <?php if( $data['route']->deleted == 1 && \Auth::user()->role == 'admin:1' ): ?>
+        <div>
+            <a href="<?php echo e(route('route_archive_restore', array('id' => $data['route']->id) )); ?>" class="button is-primary">Restore route</a>
+        </div>
+        <?php endif; ?>
 
         <mapbox 
         controls="true"

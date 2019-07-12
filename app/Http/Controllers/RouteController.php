@@ -29,6 +29,32 @@ class RouteController extends Controller
         return view('pages.routes', compact('routes'));
     }
 
+    public function archive()
+    {   
+        $routes = DB::table('routes')
+            ->where('deleted', 1)
+            ->get();
+                        
+        return view('pages.routes-archive', compact('routes'));
+    }
+
+    public function restore(Request $request, $id)
+    {
+        $route = Route::find($id);
+        $route->deleted = 0;
+        $route->save();
+        
+        $audit = new AuditTrail;
+        $audit->create(array(
+            'user_id' => Auth::id(),
+            'action'  => 'restored',
+            'what'    => $route->name . ' route',
+            'link'    => route( 'route', array('name' => $route->name) ),
+        ));
+        
+        return redirect('/routes/' . $route->name);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

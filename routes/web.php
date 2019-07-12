@@ -27,6 +27,8 @@ Route::get('/settings', 'DashboardController@show')->name('settings');
 
 // /routes
 Route::get('/routes', 'RouteController@index')->name('routes');
+Route::get('/routes/archive', 'RouteController@archive')->name('route_archive');
+Route::get('/routes/archive/restore/{id}', 'RouteController@restore')->name('route_archive_restore');
 Route::get('/routes/new/', 'RouteController@create')->name('route_new');
 Route::get('/routes/{name}', 'RouteController@show')->name('route');
 Route::post('/routes/new/submit', 'RouteController@store')->name('routes_new_submit');

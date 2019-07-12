@@ -2,14 +2,9 @@
 
 @section('content')
     <div class="dashboard__content">
-        <h1 class="is-size-2 has-text-weight-bold">Routes</h1>
+        <h1 class="is-size-2 has-text-weight-bold">Routes Archive</h1>
 
         <div>
-            <div class="waypoint__controls">
-                <a href="{{ route('route_new') }}" class="button is-primary">New Route</a>
-                <a href="{{ route('route_archive') }}" class="button is-primary">Archive</a>
-            </div>     
-            
             <div class="dashboard__content-inner">
                 <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                     <tr>
