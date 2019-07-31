@@ -20,7 +20,10 @@
                         <th>
                             Email
                         </th>  
-                        <th></th>                 
+                        <th>
+                            Role
+                        </th>
+                        <th></th>
                     </tr> 
                     @foreach( $users as $user )
                         <tr>                            
@@ -29,7 +32,10 @@
                             </td>
                             <td>
                                 <a href="{{ route( 'user', array('id' => $user->id) ) }}">{{ $user->email }}</a>                                    
-                            </td>     
+                            </td> 
+                            <td>
+                                <a href="{{ route( 'user', array('id' => $user->id) ) }}">{{ ($user->role == 'admin:1' ? 'Super Admin' : 'Admin') }}</a>                                    
+                            </td> 
                             <td>
                                 <a class="button is-primary" href="{{ route('audit-trail') }}">View Audit Trail</a>        
                             </td>

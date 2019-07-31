@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
 Route::get('/audit-trail', 'AuditController@index')->name('audit-trail');
-Route::get('/settings', 'DashboardController@show')->name('settings');
+Route::get('/settings', 'SettingsController@index')->name('settings');
 
 // /routes
 Route::get('/routes', 'RouteController@index')->name('routes');
