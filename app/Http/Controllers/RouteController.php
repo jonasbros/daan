@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Laravel\Passport\HasApiTokens;
+
 
 class RouteController extends Controller
 {
@@ -188,5 +190,10 @@ class RouteController extends Controller
         ));
         
         return redirect('/routes');
+    }
+    
+    // API
+    public function fetch() {
+        //
     }
 }
