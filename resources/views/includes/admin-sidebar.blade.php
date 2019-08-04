@@ -7,6 +7,6 @@
         <li><a href="{{ route('routes') }}" class="{{( request()->is('routes') || request()->is('routes/*') ? 'is-active' : '' )}}">Routes</a></li>
         <li><a href="{{ route('users') }}" class="{{( request()->is('users') || request()->is('users/*') ? 'is-active' : '' )}}">Users</a></li>
         <li><a href="{{ route('audit-trail') }}" class="{{ request()->is('audit-trail') ? 'is-active' : '' }}">Audit Trail</a></li>
-        <li><a href="{{ route('settings') }}">Settings</a></li>
+        <li><a href="{{ route('settings') }}" class="{{ request()->is('settings') ? 'is-active' : '' }}">Settings</a></li>
     </ul>
 </aside>

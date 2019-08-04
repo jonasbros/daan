@@ -14,6 +14,7 @@ class RouteController extends Controller {
     public $successStatus = 200;
     
     public function fetch(Request $request) {        
+        
         return response()->json(['success' => $request->name], $this->successStatus);
     }
 }

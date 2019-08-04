@@ -13778,6 +13778,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 var mapboxgl = __webpack_require__(/*! mapbox-gl/dist/mapbox-gl.js */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
+__webpack_require__(/*! ./new-route.js */ "./resources/js/new-route.js");
+
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('mapbox', __webpack_require__(/*! ./components/MapboxComponent.vue */ "./resources/js/components/MapboxComponent.vue")["default"]);
 var app = new Vue({
@@ -13939,6 +13941,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapboxComponent_vue_vue_type_template_id_6844f79a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/new-route.js":
+/*!***********************************!*\
+  !*** ./resources/js/new-route.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function findCity() {
+  alert(123);
+  console.log(1);
+}
+
+console.log(123);
 
 /***/ }),
 

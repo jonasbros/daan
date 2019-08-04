@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Route;
 use App\Tag;
+use App\City;
+use App\Province;
 use App\helpers\AuditTrail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -63,8 +65,10 @@ class RouteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('pages.route-new');
+    {   
+        $provinces = Province::all();
+
+        return view('pages.route-new', compact('provinces'));
     }
 
     /**

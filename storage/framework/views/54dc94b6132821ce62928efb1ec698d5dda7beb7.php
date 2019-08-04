@@ -1,6 +1,5 @@
 <?php $__env->startSection('content'); ?>
-    <div class="dashboard__content">
-
+    <div class="dashboard__content">        
         <div class="dashboard__content-inner">
             <h1 class="is-size-2">New Route</h1>
 
@@ -11,6 +10,35 @@
                         Name: 
                         <input type="text" name="name" id="route-new__name" class="input" form="waypoints-form" required>
                     </label>
+
+                    
+                    <div class="route-cp__container columns">
+                        <div class="column is-half">
+                            
+                            <label for="route-province">
+                                Province: 
+                            
+                            </label>
+                            <select class="input" name="province" id="route-province" placeholder="Province" form="waypoints-form" value="" onchange="alert(123454)">
+                                <option value="">Select Province</option>
+
+                                <?php $__currentLoopData = $provinces; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $province): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($province->id); ?>"><?php echo e($province->province); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                        </div>
+                        <div class="column is-half">
+                             
+                            <label for="route-city">
+                                City: 
+                            
+                            </label>
+                            <select class="input" name="city" id="route-city" placeholder="City" form="waypoints-form" value="">
+                                <option value="">Select City</option>
+                                <option value="1">Bacolod</option>
+                            </select>                
+                        </div>                          
+                    </div>
                     
                     <label for="route-add_tags">
                         Tags: 

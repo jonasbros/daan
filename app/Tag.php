@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     public function route() {
-        return $this->hasManyh('App\Route');
+        return $this->hasMany('App\Route');
     }
 }
