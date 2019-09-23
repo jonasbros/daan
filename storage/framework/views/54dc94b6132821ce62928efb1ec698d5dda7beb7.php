@@ -19,7 +19,7 @@
                                 Province: 
                             
                             </label>
-                            <select class="input" name="province" id="route-province" placeholder="Province" form="waypoints-form" value="" onchange="alert(123454)">
+                            <select class="input" name="province" id="route-province" placeholder="Province" form="waypoints-form" value="" onchange="getCities(this.value)">
                                 <option value="">Select Province</option>
 
                                 <?php $__currentLoopData = $provinces; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $province): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -30,12 +30,11 @@
                         <div class="column is-half">
                              
                             <label for="route-city">
-                                City: 
+                                City / Municipality: 
                             
                             </label>
                             <select class="input" name="city" id="route-city" placeholder="City" form="waypoints-form" value="">
                                 <option value="">Select City</option>
-                                <option value="1">Bacolod</option>
                             </select>                
                         </div>                          
                     </div>

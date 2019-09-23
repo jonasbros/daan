@@ -18,7 +18,10 @@
                         <th>
                             Email
                         </th>  
-                        <th></th>                 
+                        <th>
+                            Role
+                        </th>
+                        <th></th>
                     </tr> 
                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>                            
@@ -27,7 +30,10 @@
                             </td>
                             <td>
                                 <a href="<?php echo e(route( 'user', array('id' => $user->id) )); ?>"><?php echo e($user->email); ?></a>                                    
-                            </td>     
+                            </td> 
+                            <td>
+                                <a href="<?php echo e(route( 'user', array('id' => $user->id) )); ?>"><?php echo e(($user->role == 'admin:1' ? 'Super Admin' : 'Admin')); ?></a>                                    
+                            </td> 
                             <td>
                                 <a class="button is-primary" href="<?php echo e(route('audit-trail')); ?>">View Audit Trail</a>        
                             </td>

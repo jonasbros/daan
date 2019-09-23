@@ -88,6 +88,8 @@ class RouteController extends Controller
         $route->name = $request->name;
         $route->path = $request->waypoints_input;
         $route->searches = 0;       
+        $route->city = $request->city;
+        $route->province = $request->province;
         $route->save();
         
         //find how to save relationships. is temporary

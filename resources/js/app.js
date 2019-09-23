@@ -8,3 +8,4 @@ Vue.component('mapbox', require('./components/MapboxComponent.vue').default);
 const app = new Vue({
     el: '#app',
 });
+

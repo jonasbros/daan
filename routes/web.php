@@ -38,3 +38,6 @@ Route::post('/routes/delete/{id}', 'RouteController@destroy')->name('routes_dele
 //users
 Route::get('/users', 'UserController@index')->name('users');
 Route::get('/users/{id}', 'UserController@show')->name('user');
+
+//axios
+Route::get('/routes/getprovincecities/{id}', 'AxiosStuff@RouteProvinceCities');

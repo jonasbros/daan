@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Province extends Model
 {
     public function cities() {
-        $this->hasMany('App\City');
+        return $this->hasMany('App\City')->orderBy('cities.city');
     }
 }

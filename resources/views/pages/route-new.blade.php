@@ -21,7 +21,7 @@
                                 Province: 
                             
                             </label>
-                            <select class="input" name="province" id="route-province" placeholder="Province" form="waypoints-form" value="" onchange="findCity(123454)">
+                            <select class="input" name="province" id="route-province" placeholder="Province" form="waypoints-form" value="" onchange="getCities(this.value)">
                                 <option value="">Select Province</option>
 
                                 @foreach( $provinces as $province )
@@ -32,12 +32,11 @@
                         <div class="column is-half">
                              {{-- City --}}
                             <label for="route-city">
-                                City: 
+                                City / Municipality: 
                             
                             </label>
                             <select class="input" name="city" id="route-city" placeholder="City" form="waypoints-form" value="">
                                 <option value="">Select City</option>
-                                <option value="1">Bacolod</option>
                             </select>                
                         </div>                          
                     </div>{{-- route-cp__container --}}
