@@ -84,11 +84,13 @@ class RouteController extends Controller
             'waypoints_input' => 'required',
         ]);        
 
+        $city = explode(';', $request->city)[0];
+
         $route = new Route;    
         $route->name = $request->name;
         $route->path = $request->waypoints_input;
         $route->searches = 0;       
-        $route->city = $request->city;
+        $route->city = $city;
         $route->province = $request->province;
         $route->save();
         

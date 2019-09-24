@@ -61,6 +61,7 @@
             waypointslist="true"
             routes="''"        
             controls="true"
+            ref="new_route_mapbox"
             />   
 
         </div>

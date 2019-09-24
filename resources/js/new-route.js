@@ -16,7 +16,7 @@ window.getCities = function (provinceID) {
                 let newOption = document.createElement('option'); // create option element
                 let newOptionCity = document.createTextNode(el.city); // creat text for element. the city name in this case
                 newOption.appendChild(newOptionCity); // add text to our new option element
-                newOption.value = el.id; // add the id of the city that was fetched from DB.
+                newOption.value = el.id + ';' + el.coordinates; // add the id amd coordinates of the city that was fetched from DB.
 
                 citySelect.appendChild(newOption); // append new option to our city select element
             });
@@ -29,3 +29,5 @@ window.getCities = function (provinceID) {
             }
         } );
 }
+
+

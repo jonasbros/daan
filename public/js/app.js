@@ -1794,7 +1794,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       waypoints: [],
-      directionsObj: null
+      directionsObj: null,
+      citySelect: null
     };
   },
   computed: {
@@ -1818,19 +1819,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       L.mapbox.accessToken = 'pk.eyJ1Ijoiam9uYXNicm9zIiwiYSI6ImNqdnRldjMzYTNmejAzeXVpaHg5YzNzNGEifQ.4GyCI7XIdAkZ-sFTsfhjpA';
-      var map = L.mapbox.map('mapbox__inner', null, {
+      this.map = L.mapbox.map('mapbox__inner', null, {
         zoomControl: true
       }).setView([10.6840, 122.9563], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11')); // move the attribution control out of the way
 
-      map.attributionControl.setPosition('bottomleft'); // create the initial directions object, from which the layer
+      this.map.attributionControl.setPosition('bottomleft'); // create the initial directions object, from which the layer
       // and inputs will pull data.
 
       this.directionsObj = L.mapbox.directions();
-      var directionsLayer = L.mapbox.directions.layer(this.directionsObj).addTo(map);
-      var directionsInputControl = L.mapbox.directions.inputControl('inputs', this.directionsObj).addTo(map);
-      var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', this.directionsObj).addTo(map);
-      var directionsRoutesControl = L.mapbox.directions.routesControl('routes', this.directionsObj).addTo(map);
-      var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', this.directionsObj).addTo(map);
+      var directionsLayer = L.mapbox.directions.layer(this.directionsObj).addTo(this.map);
+      var directionsInputControl = L.mapbox.directions.inputControl('inputs', this.directionsObj).addTo(this.map);
+      var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', this.directionsObj).addTo(this.map);
+      var directionsRoutesControl = L.mapbox.directions.routesControl('routes', this.directionsObj).addTo(this.map);
+      var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', this.directionsObj).addTo(this.map);
 
       if (this.waypoints.length) {
         //loop through waypoints array then assign to waypoint
@@ -1856,7 +1857,7 @@ __webpack_require__.r(__webpack_exports__);
       } // cclick event listener
 
 
-      map.on('click', function (e) {
+      this.map.on('click', function (e) {
         console.log(_this.waypoints); //if reached max waypoints
 
         if (_this.waypoints.length >= 25) {
@@ -1881,6 +1882,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
         _this.directionsObj.query();
+      }); //city select on change
+
+      this.citySelect = document.querySelector('#route-city');
+      this.citySelect.addEventListener('change', function () {
+        _this.citySelect.onchange = _this.changeCityUpdateMap();
       });
     },
     // init
@@ -1952,6 +1958,15 @@ __webpack_require__.r(__webpack_exports__);
       var form = document.querySelector('#waypoints-form');
       form.setAttribute('action', '/routes/delete/' + this.routeid);
       form.submit();
+    },
+    // deleteRoute
+    changeCityUpdateMap: function changeCityUpdateMap() {
+      var coordinates = this.citySelect.value.split(';')[1];
+      coordinates = coordinates.split(', ');
+      var lat = parseFloat(coordinates[0]);
+      var lng = parseFloat(coordinates[1]);
+      console.log(lat, lng);
+      this.map.flyTo([lat, lng]);
     }
   }
 });
@@ -15402,10 +15417,11 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 var mapboxgl = __webpack_require__(/*! mapbox-gl/dist/mapbox-gl.js */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
-__webpack_require__(/*! ./new-route.js */ "./resources/js/new-route.js");
-
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('mapbox', __webpack_require__(/*! ./components/MapboxComponent.vue */ "./resources/js/components/MapboxComponent.vue")["default"]);
+
+__webpack_require__(/*! ./new-route.js */ "./resources/js/new-route.js");
+
 var app = new Vue({
   el: '#app'
 });
@@ -15595,7 +15611,7 @@ window.getCities = function (provinceID) {
 
       newOption.appendChild(newOptionCity); // add text to our new option element
 
-      newOption.value = el.id; // add the id of the city that was fetched from DB.
+      newOption.value = el.id + ';' + el.coordinates; // add the id amd coordinates of the city that was fetched from DB.
 
       citySelect.appendChild(newOption); // append new option to our city select element
     });

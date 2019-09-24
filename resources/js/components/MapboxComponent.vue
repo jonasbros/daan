@@ -48,6 +48,7 @@
             return {
                 waypoints: [],
                 directionsObj: null,
+                citySelect: null,
             }            
         },
         computed: {
@@ -69,33 +70,33 @@
         methods: {
             init() {
                 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9uYXNicm9zIiwiYSI6ImNqdnRldjMzYTNmejAzeXVpaHg5YzNzNGEifQ.4GyCI7XIdAkZ-sFTsfhjpA';
-                var map = L.mapbox.map('mapbox__inner', null, {
+                this.map = L.mapbox.map('mapbox__inner', null, {
                     zoomControl: true,
                 })
                 .setView([10.6840, 122.9563], 13)
                 .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
                 // move the attribution control out of the way
-                map.attributionControl.setPosition('bottomleft');
+                this.map.attributionControl.setPosition('bottomleft');
 
                 // create the initial directions object, from which the layer
                 // and inputs will pull data.
                 this.directionsObj = L.mapbox.directions();
 
                 var directionsLayer = L.mapbox.directions.layer(this.directionsObj)
-                    .addTo(map);
+                    .addTo(this.map);
 
                 var directionsInputControl = L.mapbox.directions.inputControl('inputs', this.directionsObj)
-                    .addTo(map);
+                    .addTo(this.map);
 
                 var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', this.directionsObj)
-                    .addTo(map);
+                    .addTo(this.map);
 
                 var directionsRoutesControl = L.mapbox.directions.routesControl('routes', this.directionsObj)
-                    .addTo(map);
+                    .addTo(this.map);
 
                 var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', this.directionsObj)
-                    .addTo(map);
+                    .addTo(this.map);
 
                  if( this.waypoints.length ) {
                     //loop through waypoints array then assign to waypoint
@@ -116,7 +117,7 @@
                     this.directionsObj.query();
                 }
                 // cclick event listener
-                map.on('click', (e) => {
+                this.map.on('click', (e) => {
                     console.log(this.waypoints);
                     //if reached max waypoints
                     if( this.waypoints.length >= 25 ) { return; }
@@ -138,6 +139,13 @@
                     //repaint
                     this.directionsObj.query();
                 });
+
+                //city select on change
+                this.citySelect = document.querySelector('#route-city');
+                this.citySelect.addEventListener('change', () => {
+                    this.citySelect.onchange = this.changeCityUpdateMap();
+                });
+                
             }, // init
             parseRoute() {                            
                 this.waypoints = this.routes.split(';');
@@ -201,6 +209,17 @@
                 form.setAttribute('action', '/routes/delete/' + this.routeid);
                 form.submit();
             }, // deleteRoute
+            changeCityUpdateMap() {
+                let coordinates = this.citySelect.value.split(';')[1];                
+                coordinates = coordinates.split(', ');
+                
+                let lat = parseFloat(coordinates[0]);
+                let lng = parseFloat(coordinates[1]);
+
+                console.log(lat, lng);
+
+                this.map.flyTo([lat, lng]);
+            }
         }
     }
 </script>
