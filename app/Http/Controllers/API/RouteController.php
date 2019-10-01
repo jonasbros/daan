@@ -14,13 +14,22 @@ class RouteController extends Controller {
     public $successStatus = 200;
     private $isSuccess = false;
 
-    public function route(Request $request, $search) {
+    public function route(Request $request, $city, $province, $search) {
         
-        $route = Route::where('name', 'like', '%' . $search . '%')->first();
+        $route = Route::where('name', 'like', '%' . $search . '%')
+                        ->where('city', $city)
+                        ->where('province', $province)
+                        ->first();
         
         if( empty($route) ) {
             $tag = Tag::where('tag', 'like', '%' . $search . '%')->first();
-            $route = Route::find($tag->route_id);
+                        
+            if( !empty($tag) ) {
+                $route = Route::where('id', $tag->route_id)
+                        ->where('city', $city)
+                        ->where('province', $province)
+                        ->first();
+            }    
         }
         
         if( !empty($route) ) {        

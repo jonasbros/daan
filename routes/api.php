@@ -12,5 +12,5 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/route/{search}', 'API\RouteController@route')->name('route.api');
+Route::get('/route/{city}/{province}/{search}', 'API\RouteController@route')->name('route.api');
 
