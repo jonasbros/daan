@@ -12,9 +12,20 @@ use Illuminate\Support\Facades\Auth;
 
 class RouteController extends Controller {
     public $successStatus = 200;
-    
-    public function fetch(Request $request) {        
-        
-        return response()->json(['success' => $request->name], $this->successStatus);
+    private $isSuccess = false;
+
+    public function route(Request $request, $id) {   
+        $route = Route::find($id);
+
+        if( $route ) {
+            $this->isSuccess = true;
+        }
+
+        return response()->json(
+            [
+                'success' => $this->isSuccess,
+                'route'   => $route
+            ],            
+            $this->successStatus);
     }
 }

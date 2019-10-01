@@ -12,5 +12,5 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('fetch', 'API\RouteController@fetch');
+Route::get('/route/{id}', 'API\RouteController@route')->name('route.api');
 
