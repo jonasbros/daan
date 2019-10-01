@@ -14,8 +14,9 @@ class RouteController extends Controller {
     public $successStatus = 200;
     private $isSuccess = false;
 
-    public function route(Request $request, $id) {   
-        $route = Route::find($id);
+    public function route(Request $request, $search) {   
+        $tag = Tag::where('tag', 'like', '%' . $search . '%')->first();
+        $route = Route::find($tag->route_id);
 
         if( $route ) {
             $this->isSuccess = true;
@@ -26,6 +27,7 @@ class RouteController extends Controller {
                 'success' => $this->isSuccess,
                 'route'   => $route
             ],            
-            $this->successStatus);
+            $this->successStatus
+        );
     }
 }
